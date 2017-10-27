@@ -5,13 +5,29 @@ const io = require('socket.io-client');
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      users: []
+    };
   }
+
+
+  componentDidMount() {
+    fetch('http://localhost:3000/getAllUsers')
+    .then(resp => resp.json())
+    .then(users => {
+      console.log(users);
+      this.setState({ users: users });
+    })
+    .catch(err => console.log(err));
+  }
+
 
   render() {
     let input;
     return (
       <div>
-        React is working
+        {this.state.users}
       </div>
     );
   }

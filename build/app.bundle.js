@@ -14875,17 +14875,36 @@ var App = function (_React$Component) {
   function App(props) {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    _this.state = {
+      users: []
+    };
+    return _this;
   }
 
   _createClass(App, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      fetch('http://localhost:3000/getAllUsers').then(function (resp) {
+        return console.log(resp);
+      }).then(function (users) {
+        console.log(users);
+        _this2.setState({ users: users });
+      }).catch(function (err) {
+        return console.log(err);
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var input = void 0;
       return _react2.default.createElement(
         'div',
         null,
-        'React is working'
+        this.state.users
       );
     }
   }]);
