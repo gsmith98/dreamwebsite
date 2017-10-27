@@ -1,25 +1,21 @@
 import React from 'react';
-
-const displayMessage =
-  'The React Redux Boilerplate is running successfully!';
+const io = require('socket.io-client');
 
 // class component
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    let input;
     return (
       <div>
-        <p>{displayMessage}</p>
+        React is working
       </div>
     );
   }
 };
-
-/* Equivalent function component! */
-// const App = (/* props OR { prop1, prop2 } */) => (
-//    <div>
-//      <p>{displayMessage}</p>
-//    </div>
-// );
 
 
 /*
