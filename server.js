@@ -95,7 +95,7 @@ app.get('/getAllUsers', (req, res) => {
       res.json(users);
     }
   });
-})
+});
 
 // app.use((req, res, next) => {
 //   if(req.user) {

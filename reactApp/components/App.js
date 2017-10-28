@@ -1,5 +1,7 @@
 import React from 'react';
-const io = require('socket.io-client');
+// const io = require('socket.io-client');
+import Sidebar from './Sidebar';
+import Profile from './Profile';
 
 // class component
 class App extends React.Component {
@@ -7,16 +9,19 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      users: []
+      users: [],
+      selectedUser: null
     };
   }
 
+  selectUser(index) {
+    this.setState({selectedUser: index});
+  }
 
   componentDidMount() {
     fetch('http://localhost:3000/getAllUsers')
     .then(resp => resp.json())
     .then(users => {
-      console.log(users);
       this.setState({ users: users });
     })
     .catch(err => console.log(err));
@@ -26,32 +31,13 @@ class App extends React.Component {
   render() {
     let input;
     return (
-      <div>
-        {this.state.users}
+      <div style={{display: 'flex', flexDirection: "row"}}>
+        <Sidebar selectUser={(index) => this.selectUser(index)} users={this.state.users} />
+        {this.state.selectedUser !== null  ? <Profile user={this.state.users[this.state.selectedUser]} /> : "Pick a User!"}
       </div>
     );
   }
 };
 
-
-/*
-==========================================================
-  This is what you do if you want this component or any
-  other to become a connected "container" component!
-==========================================================
-*/
-// /* At top of file: */
-// import { connect } from 'react-redux';
-//
-// /* At bottom of file: */
-// const mapStateToProps = (state) => ({
-//    someStateProp: /* state.something typically */
-// });
-//
-// const mapDispatchToProps = (dispatch) => ({
-//    someDispProp: /* some function that dispatches an action */
-// });
-//
-// App = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default App;
